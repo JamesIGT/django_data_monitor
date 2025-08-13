@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-rc+22dxsomrf+f(t#&*=2+-y%ylt#hc4$*nk&+gvn0s6dl-k9c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  "*",
+]
 
 API_URL = 'https://jsonplaceholder.typicode.com/posts'
 
@@ -51,6 +53,19 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+  "https://*.app.github.dev", # Solo si utiliza Codespaces
+  "https://localhost:8000",
+  "http://127.0.0.1:8000"
+]
+
+# Fallo: acceso sin autenticación
+LOGIN_URL = '/login/'
+
+# Éxito: luego de autenticación exitosa
+LOGIN_REDIRECT_URL = '/'
+
 
 ROOT_URLCONF = 'backend_analytics_server.urls'
 
