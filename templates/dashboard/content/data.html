@@ -1,0 +1,183 @@
+<main class="h-full overflow-y-auto">
+  <div class="container px-6 mx-auto grid">
+    <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
+      {{ title }}
+    </h2>
+
+    <!-- Indicadores -->
+    <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+
+      <!-- Indicador Temperatura -->
+<div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+  <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-orange-500">
+    <!-- Termómetro -->
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M12 2v10.5a4 4 0 1 0 4 4V2a4 4 0 1 0-8 0v12.5a4 4 0 1 0 4-4V2" />
+    </svg>
+  </div>
+  <div>
+    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+      Temperatura
+    </p>
+    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+      {{ temperature }} °C
+    </p>
+  </div>
+</div>
+
+<!-- Indicador Temperatura Aparente -->
+<div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+  <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
+    <!-- Sol -->
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="5" />
+      <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+    </svg>
+  </div>
+  <div>
+    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+      Temperatura Aparente
+    </p>
+    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+      {{ apparent_temperature }} °C
+    </p>
+  </div>
+</div>
+
+<!-- Indicador Viento -->
+<div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+  <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
+    <!-- Viento -->
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M3 12h13a4 4 0 1 1 0 8H5" />
+      <path d="M7 8h10a2 2 0 1 0 0-4H8" />
+    </svg>
+  </div>
+  <div>
+    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+      Velocidad del Viento
+    </p>
+    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+      {{ wind_speed }} km/h
+    </p>
+  </div>
+</div>
+
+<!-- Indicador Humedad -->
+<div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+  <div class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full dark:text-teal-100 dark:bg-teal-500">
+    <!-- Gota de agua -->
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path d="M12 2C12 2 7 8.5 7 13a5 5 0 0 0 10 0c0-4.5-5-11-5-11z" />
+    </svg>
+  </div>
+  <div>
+    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">
+      Humedad Relativa
+    </p>
+    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">
+      {{ relative_humidity }} %
+    </p>
+  </div>
+</div>
+
+    </div>
+
+    <div class="grid gap-6 mb-8 md:grid-cols-2">
+
+      <!-- Datos -->
+      <div class="row-span-1 w-full overflow-hidden rounded-lg shadow-xs mb-6">
+        <div class="w-full overflow-x-auto">
+          <table class="w-full whitespace-no-wrap">
+            <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+              <tr class="text-gray-700 dark:text-gray-400">
+                <td class="px-4 py-3 text-sm">Día</td>
+                <td class="px-4 py-3 text-sm">Hora</td>
+                <td class="px-4 py-3 text-sm">Temperatura</td>
+                <td class="px-4 py-3 text-sm">Temperatura Aparente</td>
+              </tr>
+              {% for row in table_rows %}
+              <tr class="text-gray-700 dark:text-gray-400">
+                <td class="px-4 py-3 text-sm">
+                  {% if row.dia == "actual" %}
+                    <span class="font-bold text-green-600">actual</span>
+                  {% elif row.dia == "mañana" %}
+                    <span class="font-bold text-blue-600">mañana</span>
+                  {% else %}
+                    {{ row.dia }}
+                  {% endif %}
+                </td>
+                <td class="px-4 py-3 text-sm">{{ row.hora }}</td>
+                <td class="px-4 py-3 text-sm">{{ row.temperatura }} °C</td>
+                <td class="px-4 py-3 text-sm">{{ row.aparente }} °C</td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="4">No hay datos disponibles.</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Gráfico -->
+      <div class="row-span-1 grid gap-6 mb-8 md:grid-cols-12">
+        <div class="min-w-0 p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+          <h4 class="mb-4 font-semibold text-gray-800 dark:text-gray-300">Temperaturas del día actual</h4>
+          <canvas id="lineChart"
+            data-horas='{{ horas_actual_json|safe }}'
+            data-temps='{{ temps_actual_json|safe }}'
+            data-temps-aparentes='{{ temps_aparentes_actual_json|safe }}'>
+          </canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Script de Chart.js al final -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const canvas = document.getElementById('lineChart');
+      const horas = JSON.parse(canvas.dataset.horas);
+      const temps = JSON.parse(canvas.dataset.temps);
+      const tempsAparentes = JSON.parse(canvas.dataset.tempsAparentes);
+
+      new Chart(canvas, {
+        type: 'line',
+        data: {
+          labels: horas,
+          datasets: [
+            {
+              label: 'Temperatura Real (°C)',
+              data: temps,
+              borderColor: 'rgb(255, 99, 132)',
+              backgroundColor: 'rgba(255, 99, 132, 0.2)',
+              tension: 0.3
+            },
+            {
+              label: 'Temperatura Aparente (°C)',
+              data: tempsAparentes,
+              borderColor: 'rgb(54, 162, 235)',
+              backgroundColor: 'rgba(54, 162, 235, 0.2)',
+              tension: 0.3
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          interaction: {
+            mode: 'index',
+            intersect: false,
+          },
+          plugins: {
+            tooltip: {
+              enabled: true
+            }
+          }
+        }
+      });
+    });
+  </script>
+</main>
